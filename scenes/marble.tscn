@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdao81yo3lxtw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sugp2"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_jyhfs"]
+radius = 0.1
+height = 0.2
+
+[node name="RigidBody3D" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_sugp2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_jyhfs")
+skeleton = NodePath("../CollisionShape3D")

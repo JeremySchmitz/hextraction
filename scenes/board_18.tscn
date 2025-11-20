@@ -14,7 +14,6 @@ visible = false
 script = ExtResource("2_mshug")
 
 [node name="Grid" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0976098, 0)
 
 [node name="Row_0" type="Node3D" parent="Grid"]
 

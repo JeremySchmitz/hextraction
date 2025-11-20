@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://i1pb5lonoy3x"]
 
 [ext_resource type="Script" uid="uid://wwn1t2wrfjgw" path="res://scripts/hex_tile.gd" id="1_8oknp"]
-[ext_resource type="PackedScene" uid="uid://qeooe038hlkg" path="res://resources/unit_hex.glb" id="1_xon6g"]
+[ext_resource type="PackedScene" uid="uid://qeooe038hlkg" path="res://resources/tiles/unit_hex.glb" id="1_xon6g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xon6g"]
-size = Vector3(0.575, 1, 1)
+size = Vector3(0.575, 0.25, 1)
 
 [node name="HexTile" type="Node3D"]
 script = ExtResource("1_8oknp")
@@ -18,14 +18,15 @@ visible = false
 transform = Transform3D(0.975, 0, 0, 0, 0.975, 0, 0, 0, 0.975, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 shape = SubResource("BoxShape3D_xon6g")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 0.125, 0)
 shape = SubResource("BoxShape3D_xon6g")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0, 0)
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0.125, 0)
 shape = SubResource("BoxShape3D_xon6g")
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

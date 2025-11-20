@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5fab74ndibj0"]
+[gd_scene load_steps=8 format=3 uid="uid://c5fab74ndibj0"]
 
 [ext_resource type="PackedScene" uid="uid://luo2ba3w1yvu" path="res://scenes/board_18.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://bc3a4oge2vixj" path="res://scenes/tile_x.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://bdao81yo3lxtw" path="res://scenes/marble.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://ck3g6m5kgq5wf" path="res://scenes/board_24.tscn" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -25,6 +28,21 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.685412, 0.728156, 0, -0.728156, 0.685412, 0.938338, 4.93913, 7.24244)
+transform = Transform3D(1, 0, 0, 0, 0.685412, 0.728156, 0, -0.728156, 0.685412, 0, 4.659, 1.31124)
 
 [node name="Board" parent="." instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0)
+visible = false
+
+[node name="Tile_X" parent="Board" instance=ExtResource("2_0wfyh")]
+
+[node name="Tile_X2" parent="Board" instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Tile_X3" parent="Board" instance=ExtResource("2_0wfyh")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 0, 2)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24598, 3.06127, -5.05787)
+
+[node name="Board2" parent="." instance=ExtResource("4_jyhfs")]
