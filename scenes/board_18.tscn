@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3 uid="uid://luo2ba3w1yvu"]
+
+[ext_resource type="PackedScene" uid="uid://bymeh3bwej3yg" path="res://resources/board/board_18.glb" id="1_llncp"]
+[ext_resource type="Script" uid="uid://inlkjsik8avq" path="res://scripts/hex_grid.gd" id="2_mshug"]
+[ext_resource type="PackedScene" uid="uid://i1pb5lonoy3x" path="res://scenes/hex_tile.tscn" id="3_mshug"]
+
+[node name="Board" type="Node3D"]
+
+[node name="board_18" parent="." instance=ExtResource("1_llncp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="HexGrid" type="Node3D" parent="."]
+visible = false
+script = ExtResource("2_mshug")
+
+[node name="Grid" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0976098, 0)
+
+[node name="Row_0" type="Node3D" parent="Grid"]
+
+[node name="HexTile_0_1" parent="Grid/Row_0" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 1)
+grid_position = Vector2(0, 1)
+
+[node name="HexTile_0_2" parent="Grid/Row_0" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 2)
+grid_position = Vector2(0, 2)
+
+[node name="HexTile_0_3" parent="Grid/Row_0" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 3)
+grid_position = Vector2(0, 3)
+
+[node name="Row_01" type="Node3D" parent="Grid"]
+
+[node name="HexTile_1_0" parent="Grid/Row_01" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 0.5)
+grid_position = Vector2(1, 0)
+
+[node name="HexTile_1_1" parent="Grid/Row_01" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 1.5)
+grid_position = Vector2(1, 1)
+
+[node name="HexTile_1_2" parent="Grid/Row_01" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 2.5)
+grid_position = Vector2(1, 2)
+
+[node name="HexTile_1_3" parent="Grid/Row_01" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 3.5)
+grid_position = Vector2(1, 3)
+
+[node name="Row_02" type="Node3D" parent="Grid"]
+
+[node name="HexTile_2_0" parent="Grid/Row_02" instance=ExtResource("3_mshug")]
+grid_position = Vector2(2, 0)
+
+[node name="HexTile_2_1" parent="Grid/Row_02" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+grid_position = Vector2(2, 1)
+
+[node name="HexTile_2_2" parent="Grid/Row_02" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+grid_position = Vector2(2, 2)
+
+[node name="HexTile_2_3" parent="Grid/Row_02" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+grid_position = Vector2(2, 3)
+
+[node name="Row_03" type="Node3D" parent="Grid"]
+
+[node name="HexTile_3_0" parent="Grid/Row_03" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 0.5)
+grid_position = Vector2(3, 0)
+
+[node name="HexTile_3_1" parent="Grid/Row_03" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 1.5)
+grid_position = Vector2(3, 1)
+
+[node name="HexTile_3_2" parent="Grid/Row_03" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 2.5)
+grid_position = Vector2(3, 2)
+
+[node name="HexTile_3_3" parent="Grid/Row_03" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 3.5)
+grid_position = Vector2(3, 3)
+
+[node name="Row_04" type="Node3D" parent="Grid"]
+
+[node name="HexTile_4_0" parent="Grid/Row_04" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 1)
+grid_position = Vector2(4, 0)
+
+[node name="HexTile_4_1" parent="Grid/Row_04" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 2)
+grid_position = Vector2(4, 1)
+
+[node name="HexTile_4_2" parent="Grid/Row_04" instance=ExtResource("3_mshug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 3)
+grid_position = Vector2(4, 2)
