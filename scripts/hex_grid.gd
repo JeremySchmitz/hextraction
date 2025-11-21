@@ -31,7 +31,7 @@ func _buildGrid():
 			var tile = HEX_TILE.instantiate()
 			add_child(tile)
 			tile.translate(Vector3(coordinates.x, 0, coordinates.y))
-			tile.get_node("unit_hex/mergedBlocks(Clone)").material_override = get_tile_material(tile_index)
+			#tile.get_node("unit_hex/mergedBlocks(Clone)").material_override = get_tile_material(tile_index)
 
 			coordinates.y += TILE_SIZE
 			tile_index += 1

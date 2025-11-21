@@ -17,6 +17,8 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 [autoload]
 
 SignalBus="*res://Global/Signal_Bus.gd"
+TileDeck="*res://Global/Tile_Deck.gd"
+Stack="*res://Global/Stack.gd"
 
 [input]
 

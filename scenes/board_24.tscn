@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://ck3g6m5kgq5wf"]
+[gd_scene load_steps=8 format=3 uid="uid://ck3g6m5kgq5wf"]
 
-[ext_resource type="PackedScene" uid="uid://bymeh3bwej3yg" path="res://resources/board/board_18.glb" id="1_lm4ji"]
-[ext_resource type="Script" uid="uid://inlkjsik8avq" path="res://scripts/hex_grid.gd" id="2_rcujr"]
+[ext_resource type="Script" uid="uid://sfnocllkdbr2" path="res://scripts/board.gd" id="1_e0v05"]
 [ext_resource type="PackedScene" uid="uid://i1pb5lonoy3x" path="res://scenes/hex_tile.tscn" id="3_e0v05"]
 [ext_resource type="PackedScene" uid="uid://b6ahtwxkbwgkm" path="res://resources/board/board_24.glb" id="4_rcujr"]
 
@@ -21,165 +20,164 @@ radius = 0.157112
 height = 0.798342
 
 [node name="Board" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.28246, -3.98393)
+script = ExtResource("1_e0v05")
 
-[node name="board_18" parent="." instance=ExtResource("1_lm4ji")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+[node name="transform" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 2.25, -4)
 
-[node name="HexGrid" type="Node3D" parent="."]
-visible = false
-script = ExtResource("2_rcujr")
+[node name="grid" type="Node3D" parent="transform"]
+unique_name_in_owner = true
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, -0.025)
 
-[node name="Grid" type="Node3D" parent="."]
+[node name="Row_0" type="Node3D" parent="transform/grid"]
 
-[node name="Row_0" type="Node3D" parent="Grid"]
+[node name="HexTile_0_0" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
 
-[node name="HexTile_0_0" parent="Grid/Row_0" instance=ExtResource("3_e0v05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 0)
-
-[node name="HexTile_0_1" parent="Grid/Row_0" instance=ExtResource("3_e0v05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 1)
+[node name="HexTile_0_1" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 1)
 grid_position = Vector2(0, 1)
 
-[node name="HexTile_0_2" parent="Grid/Row_0" instance=ExtResource("3_e0v05")]
+[node name="HexTile_0_2" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 2)
 grid_position = Vector2(0, 2)
 
-[node name="HexTile_0_3" parent="Grid/Row_0" instance=ExtResource("3_e0v05")]
+[node name="HexTile_0_3" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7426, 0, 2.99818)
 grid_position = Vector2(0, 3)
 
-[node name="Row_01" type="Node3D" parent="Grid"]
+[node name="Row_01" type="Node3D" parent="transform/grid"]
 
-[node name="HexTile_1_0" parent="Grid/Row_01" instance=ExtResource("3_e0v05")]
+[node name="HexTile_1_0" parent="transform/grid/Row_01" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, -0.5)
 grid_position = Vector2(1, 0)
 
-[node name="HexTile_1_1" parent="Grid/Row_01" instance=ExtResource("3_e0v05")]
+[node name="HexTile_1_1" parent="transform/grid/Row_01" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 0.5)
 grid_position = Vector2(1, 1)
 
-[node name="HexTile_1_2" parent="Grid/Row_01" instance=ExtResource("3_e0v05")]
+[node name="HexTile_1_2" parent="transform/grid/Row_01" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 1.5)
 grid_position = Vector2(1, 2)
 
-[node name="HexTile_1_3" parent="Grid/Row_01" instance=ExtResource("3_e0v05")]
+[node name="HexTile_1_3" parent="transform/grid/Row_01" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 2.5)
 grid_position = Vector2(1, 3)
 
-[node name="HexTile_1_4" parent="Grid/Row_01" instance=ExtResource("3_e0v05")]
+[node name="HexTile_1_4" parent="transform/grid/Row_01" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.866, 0, 3.5)
 grid_position = Vector2(1, 4)
 
-[node name="Row_02" type="Node3D" parent="Grid"]
+[node name="Row_02" type="Node3D" parent="transform/grid"]
 
-[node name="HexTile_2_0" parent="Grid/Row_02" instance=ExtResource("3_e0v05")]
+[node name="HexTile_2_0" parent="transform/grid/Row_02" instance=ExtResource("3_e0v05")]
 grid_position = Vector2(2, 0)
 
-[node name="HexTile_2_1" parent="Grid/Row_02" instance=ExtResource("3_e0v05")]
+[node name="HexTile_2_1" parent="transform/grid/Row_02" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 grid_position = Vector2(2, 1)
 
-[node name="HexTile_2_2" parent="Grid/Row_02" instance=ExtResource("3_e0v05")]
+[node name="HexTile_2_2" parent="transform/grid/Row_02" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 grid_position = Vector2(2, 2)
 
-[node name="HexTile_2_3" parent="Grid/Row_02" instance=ExtResource("3_e0v05")]
+[node name="HexTile_2_3" parent="transform/grid/Row_02" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 grid_position = Vector2(2, 3)
 
-[node name="Row_03" type="Node3D" parent="Grid"]
+[node name="Row_03" type="Node3D" parent="transform/grid"]
 
-[node name="HexTile_3_0" parent="Grid/Row_03" instance=ExtResource("3_e0v05")]
+[node name="HexTile_3_0" parent="transform/grid/Row_03" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, -0.5)
 grid_position = Vector2(3, 0)
 
-[node name="HexTile_3_1" parent="Grid/Row_03" instance=ExtResource("3_e0v05")]
+[node name="HexTile_3_1" parent="transform/grid/Row_03" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 0.5)
 grid_position = Vector2(3, 1)
 
-[node name="HexTile_3_2" parent="Grid/Row_03" instance=ExtResource("3_e0v05")]
+[node name="HexTile_3_2" parent="transform/grid/Row_03" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 1.5)
 grid_position = Vector2(3, 2)
 
-[node name="HexTile_3_3" parent="Grid/Row_03" instance=ExtResource("3_e0v05")]
+[node name="HexTile_3_3" parent="transform/grid/Row_03" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 2.5)
 grid_position = Vector2(3, 3)
 
-[node name="HexTile_3_4" parent="Grid/Row_03" instance=ExtResource("3_e0v05")]
+[node name="HexTile_3_4" parent="transform/grid/Row_03" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.866, 0, 3.5)
 grid_position = Vector2(3, 4)
 
-[node name="Row_04" type="Node3D" parent="Grid"]
+[node name="Row_04" type="Node3D" parent="transform/grid"]
 
-[node name="HexTile_4_0" parent="Grid/Row_04" instance=ExtResource("3_e0v05")]
+[node name="HexTile_4_0" parent="transform/grid/Row_04" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 0)
 grid_position = Vector2(4, 0)
 
-[node name="HexTile_4_1" parent="Grid/Row_04" instance=ExtResource("3_e0v05")]
+[node name="HexTile_4_1" parent="transform/grid/Row_04" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 1)
 grid_position = Vector2(4, 1)
 
-[node name="HexTile_4_2" parent="Grid/Row_04" instance=ExtResource("3_e0v05")]
+[node name="HexTile_4_2" parent="transform/grid/Row_04" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 2)
 grid_position = Vector2(4, 2)
 
-[node name="HexTile_4_3" parent="Grid/Row_04" instance=ExtResource("3_e0v05")]
+[node name="HexTile_4_3" parent="transform/grid/Row_04" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.732, 0, 3)
 grid_position = Vector2(4, 3)
 
-[node name="board_24" parent="." instance=ExtResource("4_rcujr")]
+[node name="board_24" parent="transform" instance=ExtResource("4_rcujr")]
 transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 2)
 
-[node name="goal" type="Area3D" parent="." groups=["goals"]]
+[node name="goal" type="Area3D" parent="transform/board_24" groups=["goals"]]
 unique_name_in_owner = true
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -100)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="goal"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/goal"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.876076, 0.300734, 4.80819)
 shape = SubResource("BoxShape3D_rcujr")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="goal"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="transform/board_24/goal"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.876, 0.301, 4.808)
 shape = SubResource("BoxShape3D_rcujr")
 
-[node name="start_01" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50779, 0.105136, -1.22193)
+[node name="start_01" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -75.3897, 5.2568, -161.096)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_01"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_e0v05")
 
-[node name="start_02" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885618, 0.105136, -1.22193)
+[node name="start_02" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -44.2809, 5.2568, -161.096)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_02"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.0784725)
 shape = SubResource("CapsuleShape3D_1pw8x")
 
-[node name="start_03" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.252233, 0.105136, -1.22193)
+[node name="start_03" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -12.6116, 5.2568, -161.096)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_03"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_e0v05")
 
-[node name="start_04" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.241023, 0.105136, -1.22193)
+[node name="start_04" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 12.0511, 5.2568, -161.096)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_04"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_e0v05")
 
-[node name="start_05" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.885619, 0.105136, -1.22193)
+[node name="start_05" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 44.2809, 5.2568, -161.096)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_05"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_05"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.112103)
 shape = SubResource("CapsuleShape3D_pw26l")
 
-[node name="start_06" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50219, 0.105136, -1.22753)
+[node name="start_06" type="Area3D" parent="transform/board_24"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 75.1094, 5.2568, -161.377)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="start_06"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/start_06"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_e0v05")
