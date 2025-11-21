@@ -5,4 +5,6 @@ signal tileExited(pos: Vector2)
 signal tileClick(pos: Vector2)
 
 signal tileConfirmed()
-signal tileCanceled()
+signal tileCanceled(pos:Vector2)
+
+signal startClicked(pos:Vector3)

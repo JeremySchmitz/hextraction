@@ -28,6 +28,14 @@ func _setMaterial(index: int):
 func _get_tile_material(tile_index: int):
 	var index = tile_index % TILE_MATERIALS.size()
 	return TILE_MATERIALS[index]
+	
+func hidePreview():
+	%highlight_hex.hide()
+	if (!active):
+		var child = %markerTile.get_child(0)
+		if(child): 
+			%markerTile.remove_child(child)
+			child.queue_free()
 
 func _on_area_3d_mouse_entered() -> void:
 	if(!selectable): return
@@ -41,10 +49,7 @@ func _on_area_3d_mouse_entered() -> void:
 func _on_area_3d_mouse_exited() -> void:
 	if(!selectable): return
 	SignalBus.tileExited.emit(grid_position)
-	%highlight_hex.hide()
-	if (!active):
-		var child = %markerTile.get_child(0)
-		if(child): child.queue_free()
+	hidePreview()
 	#_setMaterial(0)
 
 
@@ -77,7 +82,7 @@ func _on_cancel_input_event(camera: Node, event: InputEvent, event_position: Vec
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.pressed
 	):
-		SignalBus.tileCanceled.emit()
+		SignalBus.tileCanceled.emit(grid_position)
 
 
 func _on_confirm_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:

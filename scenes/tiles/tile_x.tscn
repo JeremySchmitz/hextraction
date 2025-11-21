@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc3a4oge2vixj"]
+
+[ext_resource type="Script" uid="uid://bskad3f00xdw6" path="res://scripts/tile.gd" id="1_wk7f6"]
+[ext_resource type="PackedScene" uid="uid://bu77aancxv26w" path="res://resources/tiles/tile_x.glb" id="2_70i3o"]
+
+[node name="Tile_X" type="Node3D"]
+script = ExtResource("1_wk7f6")
+
+[node name="tile_x" parent="." instance=ExtResource("2_70i3o")]

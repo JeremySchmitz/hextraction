@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b54vtgcqil14q"]
+
+[ext_resource type="Script" uid="uid://bskad3f00xdw6" path="res://scripts/tile.gd" id="1_a8itr"]
+[ext_resource type="PackedScene" uid="uid://c2ltl6eryhkcd" path="res://resources/tiles/tile_blind_bottom.glb" id="2_62xnx"]
+
+[node name="Tile_blind_bottom" type="Node3D"]
+script = ExtResource("1_a8itr")
+
+[node name="tile_blind_bottom" parent="." instance=ExtResource("2_62xnx")]
