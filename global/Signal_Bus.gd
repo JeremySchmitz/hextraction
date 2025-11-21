@@ -8,3 +8,6 @@ signal tileConfirmed()
 signal tileCanceled(pos:Vector2)
 
 signal startClicked(pos:Vector3)
+
+signal goalReached()
+signal marbleStopped(marble: Marble)

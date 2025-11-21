@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdao81yo3lxtw"]
+[gd_scene load_steps=4 format=3 uid="uid://bdao81yo3lxtw"]
+
+[ext_resource type="Script" uid="uid://4lhqxhg68rnf" path="res://scripts/marble.gd" id="1_il0lc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sugp2"]
 radius = 0.1
@@ -7,7 +9,8 @@ radius = 0.1
 radius = 0.1
 height = 0.2
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="RigidBody3D" type="RigidBody3D" groups=["marble"]]
+script = ExtResource("1_il0lc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_sugp2")

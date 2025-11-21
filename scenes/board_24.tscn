@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck3g6m5kgq5wf"]
+[gd_scene load_steps=7 format=3 uid="uid://ck3g6m5kgq5wf"]
 
 [ext_resource type="Script" uid="uid://sfnocllkdbr2" path="res://scripts/board.gd" id="1_e0v05"]
 [ext_resource type="PackedScene" uid="uid://i1pb5lonoy3x" path="res://scenes/hex_tile.tscn" id="3_e0v05"]
+[ext_resource type="Script" uid="uid://d3ptbku7sklvp" path="res://scripts/goal.gd" id="4_1pw8x"]
 [ext_resource type="PackedScene" uid="uid://bh321e7ygpibg" path="res://scenes/start.tscn" id="4_e0v05"]
 [ext_resource type="PackedScene" uid="uid://b6ahtwxkbwgkm" path="res://resources/board/board_24.glb" id="4_rcujr"]
 
@@ -120,6 +121,7 @@ transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 2)
 [node name="goal" type="Area3D" parent="transform/board_24" groups=["goals"]]
 unique_name_in_owner = true
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -100)
+script = ExtResource("4_1pw8x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="transform/board_24/goal"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.876076, 0.300734, 4.80819)

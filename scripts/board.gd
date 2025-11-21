@@ -84,3 +84,6 @@ func _getTilePlaces():
 
 func _getTile(pos: Vector2) -> tilePlace:
 	return tiles[pos.x][pos.y]
+
+
+	pass # Replace with function body.

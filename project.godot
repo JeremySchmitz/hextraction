@@ -20,6 +20,11 @@ SignalBus="*res://Global/Signal_Bus.gd"
 TileDeck="*res://Global/Tile_Deck.gd"
 Stack="*res://Global/Stack.gd"
 
+[global_group]
+
+marble=""
+goals=""
+
 [input]
 
 left_click={

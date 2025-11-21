@@ -1,10 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5fab74ndibj0"]
+[gd_scene load_steps=10 format=3 uid="uid://c5fab74ndibj0"]
 
-[ext_resource type="PackedScene" uid="uid://luo2ba3w1yvu" path="res://scenes/board_18.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://bc3a4oge2vixj" path="res://scenes/tiles/tile_x.tscn" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://bdao81yo3lxtw" path="res://scenes/marble.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://b7k47vvltfvc0" path="res://scripts/kill_zone.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ck3g6m5kgq5wf" path="res://scenes/board_24.tscn" id="4_jyhfs"]
-[ext_resource type="Script" uid="uid://oai6h3lbooxc" path="res://scripts/marble.gd" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -19,6 +16,17 @@ sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
+size = Vector3(10, 1, 15)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0wfyh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sugp2"]
+size = Vector3(10, 1, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o5qli"]
+size = Vector3(50, 1, 50)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -31,20 +39,23 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.685412, 0.728156, 0, -0.728156, 0.685412, 0, 4.659, 1.31124)
 
-[node name="Board" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0)
-visible = false
+[node name="Board" parent="." instance=ExtResource("4_jyhfs")]
 
-[node name="Tile_X" parent="Board" instance=ExtResource("2_0wfyh")]
+[node name="Table" type="Node3D" parent="."]
 
-[node name="Tile_X2" parent="Board" instance=ExtResource("2_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
+mesh = SubResource("BoxMesh_o5qli")
 
-[node name="Tile_X3" parent="Board" instance=ExtResource("2_0wfyh")]
-transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 0, 2)
+[node name="StaticBody3D" type="StaticBody3D" parent="Table/MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_0wfyh")
 
-[node name="RigidBody3D" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24598, 3.06127, -5.05787)
-script = ExtResource("4_tbgi4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_sugp2")
 
-[node name="Board2" parent="." instance=ExtResource("4_jyhfs")]
+[node name="killZone" type="Area3D" parent="."]
+script = ExtResource("2_0wfyh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="killZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.187, -2.5)
+shape = SubResource("BoxShape3D_o5qli")

@@ -1,19 +1,44 @@
-[gd_scene load_steps=9 format=3 uid="uid://i1pb5lonoy3x"]
+[gd_scene load_steps=13 format=3 uid="uid://i1pb5lonoy3x"]
 
 [ext_resource type="Script" uid="uid://wwn1t2wrfjgw" path="res://scripts/hex_tile.gd" id="1_8oknp"]
 [ext_resource type="PackedScene" uid="uid://qeooe038hlkg" path="res://resources/tiles/unit_hex.glb" id="1_xon6g"]
-[ext_resource type="Texture2D" uid="uid://o80ya2ytm2bn" path="res://resources/Icons/arrow_transparent.png" id="3_grtse"]
 [ext_resource type="Texture2D" uid="uid://dtlk3qq45o37p" path="res://resources/Icons/cancel.png" id="4_l37kh"]
+[ext_resource type="Texture2D" uid="uid://o80ya2ytm2bn" path="res://resources/Icons/arrow_transparent.png" id="4_sce4p"]
 [ext_resource type="Texture2D" uid="uid://ca7uishbgranh" path="res://resources/Icons/check-mark.png" id="5_sce4p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xon6g"]
 size = Vector3(0.575, 0.25, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhfhp"]
+transparency = 1
+albedo_texture = ExtResource("4_sce4p")
+billboard_mode = 1
+billboard_keep_scale = true
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_grtse"]
 size = Vector3(0.25, 0.03125, 0.179688)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l37kh"]
+transparency = 1
+albedo_texture = ExtResource("4_sce4p")
+uv1_scale = Vector3(-1, 1, 1)
+billboard_mode = 1
+billboard_keep_scale = true
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ocyx7"]
 size = Vector3(0.25, 0.03125, 0.239868)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sce4p"]
+transparency = 1
+albedo_texture = ExtResource("4_l37kh")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocyx7"]
+transparency = 1
+albedo_texture = ExtResource("5_sce4p")
+billboard_mode = 1
+billboard_keep_scale = true
 
 [node name="HexTile" type="Node3D"]
 script = ExtResource("1_8oknp")
@@ -50,11 +75,11 @@ visible = false
 transform = Transform3D(20, 0, 0, 0, -8.74228e-07, -20, 0, 20, -8.74228e-07, 14.634, 24.3552, 9.53674e-07)
 
 [node name="rotateRight" type="Area3D" parent="transform/icons/markerRight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="transform/icons/markerRight/rotateRight"]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0)
-texture = ExtResource("3_grtse")
+material_override = SubResource("StandardMaterial3D_dhfhp")
+texture = ExtResource("4_sce4p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="transform/icons/markerRight/rotateRight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0102118)
@@ -66,8 +91,9 @@ transform = Transform3D(20, 0, 0, 0, -8.74228e-07, -20, 0, 20, -8.74228e-07, -5.
 [node name="rotateLeft" type="Area3D" parent="transform/icons/markerLeft"]
 
 [node name="Sprite3D" type="Sprite3D" parent="transform/icons/markerLeft/rotateLeft"]
-transform = Transform3D(-0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0)
-texture = ExtResource("3_grtse")
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -1, 0, 0.1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_l37kh")
+texture = ExtResource("4_sce4p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="transform/icons/markerLeft/rotateLeft"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0102118)
@@ -84,6 +110,7 @@ shape = SubResource("BoxShape3D_ocyx7")
 
 [node name="Sprite3D" type="Sprite3D" parent="transform/icons/markerBottomLeft/cancel"]
 transform = Transform3D(0.05, 0, 0, 0, -2.18557e-09, 0.05, 0, -0.05, -2.18557e-09, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_sce4p")
 texture = ExtResource("4_l37kh")
 
 [node name="markerBottomRight" type="Marker3D" parent="transform/icons"]
@@ -97,6 +124,7 @@ shape = SubResource("BoxShape3D_ocyx7")
 
 [node name="Sprite3D" type="Sprite3D" parent="transform/icons/markerBottomRight/confirm"]
 transform = Transform3D(0.05, 0, 0, 0, -2.18557e-09, 0.05, 0, -0.05, -2.18557e-09, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ocyx7")
 texture = ExtResource("5_sce4p")
 
 [node name="markerTile" type="Marker3D" parent="transform"]
