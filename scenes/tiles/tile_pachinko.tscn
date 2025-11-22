@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3udskgt0hrwd"]
+[gd_scene load_steps=4 format=3 uid="uid://c3udskgt0hrwd"]
 
 [ext_resource type="Script" uid="uid://bskad3f00xdw6" path="res://scripts/tile.gd" id="1_1056w"]
 [ext_resource type="PackedScene" uid="uid://bq24m7fiuusus" path="res://resources/tiles/tile_pachinko.glb" id="2_p3yll"]
+[ext_resource type="Resource" uid="uid://fra5ib1djwde" path="res://resources/tiles/tile_pachinko.tres" id="2_p8w4l"]
 
 [node name="Tile_pachinko" type="Node3D"]
 script = ExtResource("1_1056w")
+config = ExtResource("2_p8w4l")
 
 [node name="tile_pachinko" parent="." instance=ExtResource("2_p3yll")]

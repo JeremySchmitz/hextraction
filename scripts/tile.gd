@@ -1,6 +1,8 @@
 extends Node3D
 class_name tile
 
+@export var config: TileResource
+
 var tileRotation := 0 :
 	set(val):
 		rotation.y = val

@@ -1,0 +1,12 @@
+extends Node
+
+enum CARD_TYPE {BASIC, EFFECT}
+enum CARD_TYPE_SUB {
+	NONE,
+	TRIGGER,
+	LIMIT,
+	ON_PLAY,
+	COMBO,
+	VIRTUAL,
+	CREATE
+}

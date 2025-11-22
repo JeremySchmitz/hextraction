@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0pkac3tt42rk"]
+[gd_scene load_steps=4 format=3 uid="uid://c0pkac3tt42rk"]
 
 [ext_resource type="Script" uid="uid://bskad3f00xdw6" path="res://scripts/tile.gd" id="1_giwqu"]
+[ext_resource type="Resource" uid="uid://c2plmwt63brwf" path="res://resources/tiles/tile_j.tres" id="2_5l5hj"]
 [ext_resource type="PackedScene" uid="uid://qkg8u35nxa1p" path="res://resources/tiles/tile_j.glb" id="2_v3qdn"]
 
 [node name="Tile_j" type="Node3D"]
 script = ExtResource("1_giwqu")
+config = ExtResource("2_5l5hj")
 
 [node name="tile_j" parent="." instance=ExtResource("2_v3qdn")]

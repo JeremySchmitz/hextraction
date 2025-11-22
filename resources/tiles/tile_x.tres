@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TileResource" load_steps=2 format=3 uid="uid://dk63dulvpquxl"]
+
+[ext_resource type="Script" uid="uid://yvksbk25mt7j" path="res://resources/custom_resources/tiles/tile.rsc.gd" id="1_6yyy3"]
+
+[resource]
+script = ExtResource("1_6yyy3")
+name = "X"
+description = ""
+type = 0
+subType = 0
+scenePath = "res://scenes/tiles/tile_x.tscn"
+metadata/_custom_type_script = "uid://yvksbk25mt7j"
