@@ -11,6 +11,7 @@ func _ready() -> void:
 	SignalBus.tileConfirmed.connect(_onTileSet)
 	SignalBus.tileCanceled.connect(_onTileCanceled)
 	SignalBus.startClicked.connect(_onStartClick)
+	SignalBus.tileCardClicked.connect(_onCardClicked)
 	
 	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X]
 	_getTilePlaces()
@@ -42,6 +43,9 @@ func _input(event: InputEvent) -> void:
 		print('TILE_TYPES')
 		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X]
 
+func _onCardClicked(rsc: TileResource):
+	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType]
+	pass
 
 func _readyPlaces():
 	for row in tiles:
@@ -84,6 +88,3 @@ func _getTilePlaces():
 
 func _getTile(pos: Vector2) -> tilePlace:
 	return tiles[pos.x][pos.y]
-
-
-	pass # Replace with function body.

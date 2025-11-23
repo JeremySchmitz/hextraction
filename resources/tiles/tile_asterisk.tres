@@ -4,8 +4,9 @@
 
 [resource]
 script = ExtResource("1_te8w4")
-name = "Astersik"
+name = "Asterisk"
 description = ""
+tileType = 0
 type = 0
 subType = 0
 scenePath = "res://scenes/tiles/tile_asterisk.tscn"

@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://clywauh1wf3h7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nojw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nojw"]
+bg_color = Color(0.824378, 0.937225, 0.996748, 0.784314)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ols5k"]
+bg_color = Color(0.00392157, 0.105882, 0.14902, 0.784314)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_biaja"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_biaja"]
+bg_color = Color(0.00498815, 0.104417, 0.150108, 0.784314)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+tileCard/base_type = &"Button"
+tileCard/styles/focus = SubResource("StyleBoxEmpty_2nojw")
+tileCard/styles/hover = SubResource("StyleBoxFlat_2nojw")
+tileCard/styles/hover_pressed = SubResource("StyleBoxFlat_ols5k")
+tileCard/styles/normal = SubResource("StyleBoxEmpty_biaja")
+tileCard/styles/pressed = SubResource("StyleBoxFlat_biaja")

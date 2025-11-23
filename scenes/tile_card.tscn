@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0wneo01714k3"]
+[gd_scene load_steps=10 format=3 uid="uid://d0wneo01714k3"]
 
+[ext_resource type="Theme" uid="uid://clywauh1wf3h7" path="res://resources/main_theme.tres" id="1_nqr8b"]
 [ext_resource type="Script" uid="uid://cpkyybcuy7cxe" path="res://scripts/tile_card.gd" id="1_tn3xk"]
-[ext_resource type="Resource" uid="uid://q0lecvb3jmqm" path="res://resources/tiles/tile_peace.tres" id="2_tn3xk"]
+[ext_resource type="PackedScene" uid="uid://b1k6ggxnugiud" path="res://scenes/tiles/tile_asterisk.tscn" id="2_nqr8b"]
+[ext_resource type="Resource" uid="uid://c2plmwt63brwf" path="res://resources/tiles/tile_j.tres" id="3_tn3xk"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_hasbi"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="World3D" id="World3D_tn3xk"]
+resource_local_to_scene = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tn3xk"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -16,28 +21,41 @@ sky_material = SubResource("ProceduralSkyMaterial_tn3xk")
 [sub_resource type="Environment" id="Environment_gtcfr"]
 background_mode = 2
 sky = SubResource("Sky_nqr8b")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.1
 tonemap_mode = 2
 glow_enabled = true
+adjustment_enabled = true
+adjustment_brightness = 1.25
 
 [node name="TileCard" type="Control"]
+custom_minimum_size = Vector2(100, 150)
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_tn3xk")
-tileResource = ExtResource("2_tn3xk")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 offset_right = 125.0
 offset_bottom = 150.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme = ExtResource("1_nqr8b")
+script = ExtResource("1_tn3xk")
+tileResource = ExtResource("3_tn3xk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 150.0
+theme = ExtResource("1_nqr8b")
+theme_type_variation = &"tileCard"
+
+[node name="MarginContainer" type="MarginContainer" parent="Button"]
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 127.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Button/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Button/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -45,32 +63,29 @@ size_flags_vertical = 4
 texture = SubResource("ViewportTexture_hasbi")
 expand_mode = 1
 
-[node name="name" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="name" type="Label" parent="Button/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 text = "Test"
 horizontal_alignment = 1
+vertical_alignment = 2
 autowrap_mode = 3
 
-[node name="Control" type="Control" parent="MarginContainer"]
-layout_mode = 2
-
 [node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+world_3d = SubResource("World3D_tn3xk")
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
-environment = SubResource("Environment_gtcfr")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
 
 [node name="tilePosition" type="Marker3D" parent="SubViewport"]
 unique_name_in_owner = true
 
+[node name="Tile_asterisk" parent="SubViewport/tilePosition" instance=ExtResource("2_nqr8b")]
+
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.85, 0)
+environment = SubResource("Environment_gtcfr")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

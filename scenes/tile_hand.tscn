@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bx5tf6vhehep3"]
+
+[ext_resource type="Theme" uid="uid://clywauh1wf3h7" path="res://resources/main_theme.tres" id="1_cj6ud"]
+[ext_resource type="Script" uid="uid://dva2lntlc5a7l" path="res://scripts/tile_hand.gd" id="2_cj6ud"]
+[ext_resource type="Script" uid="uid://yvksbk25mt7j" path="res://resources/custom_resources/tiles/tile.rsc.gd" id="3_unulg"]
+[ext_resource type="Resource" uid="uid://q0lecvb3jmqm" path="res://resources/tiles/tile_peace.tres" id="4_b6uct"]
+[ext_resource type="Resource" uid="uid://ciji22yk1nrvv" path="res://resources/tiles/tile_asterisk.tres" id="4_jccr4"]
+[ext_resource type="Resource" uid="uid://cpty74b5p44qy" path="res://resources/tiles/tile_dic.tres" id="5_yskhv"]
+
+[node name="Tile Hand" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_cj6ud")
+script = ExtResource("2_cj6ud")
+cards = Array[ExtResource("3_unulg")]([ExtResource("4_b6uct"), ExtResource("5_yskhv"), ExtResource("4_jccr4")])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -403.0
+offset_top = -170.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="handContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(3.23, 0)
+layout_mode = 2
+alignment = 1

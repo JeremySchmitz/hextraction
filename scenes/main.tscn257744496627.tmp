@@ -61,16 +61,13 @@ script = ExtResource("2_0wfyh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.187, -2.5)
 shape = SubResource("BoxShape3D_o5qli")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="SubViewport" type="SubViewport" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="SubViewport"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Tile Hand" parent="CanvasLayer/Control" instance=ExtResource("3_sugp2")]
+[node name="Tile Hand" parent="SubViewport/Control" instance=ExtResource("3_sugp2")]
 layout_mode = 1

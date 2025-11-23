@@ -6,6 +6,7 @@
 script = ExtResource("1_fpchs")
 name = "DIC"
 description = ""
+tileType = 3
 type = 0
 subType = 0
 scenePath = "res://scenes/tiles/tile_dic.tscn"

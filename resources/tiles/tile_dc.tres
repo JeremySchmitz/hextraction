@@ -6,6 +6,7 @@
 script = ExtResource("1_07uct")
 name = "DC"
 description = ""
+tileType = 2
 type = 0
 subType = 0
 scenePath = "res://scenes/tiles/tile_dc.tscn"

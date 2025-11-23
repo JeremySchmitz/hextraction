@@ -11,3 +11,5 @@ signal startClicked(pos:Vector3)
 
 signal goalReached()
 signal marbleStopped(marble: Marble)
+
+signal tileCardClicked(rsc: TileResource)

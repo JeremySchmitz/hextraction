@@ -6,6 +6,7 @@
 script = ExtResource("1_xc5en")
 name = "Blind Bottom"
 description = ""
+tileType = 1
 type = 0
 subType = 0
 scenePath = "res://scenes/tiles/tile_blind_bottom.tscn"

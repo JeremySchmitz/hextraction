@@ -6,6 +6,7 @@
 script = ExtResource("1_ktbc8")
 name = "Peace"
 description = ""
+tileType = 6
 type = 0
 subType = 0
 scenePath = "res://scenes/tiles/tile_peace.tscn"
