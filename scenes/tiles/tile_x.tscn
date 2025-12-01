@@ -1,11 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3a4oge2vixj"]
+[gd_scene load_steps=5 format=3 uid="uid://bc3a4oge2vixj"]
 
 [ext_resource type="Script" uid="uid://bskad3f00xdw6" path="res://scripts/tile.gd" id="1_wk7f6"]
 [ext_resource type="PackedScene" uid="uid://bu77aancxv26w" path="res://resources/tiles/tile_x.glb" id="2_70i3o"]
 [ext_resource type="Resource" uid="uid://dk63dulvpquxl" path="res://resources/tiles/tile_x.tres" id="2_umhas"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_70i3o"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Tile_X" type="Node3D"]
 script = ExtResource("1_wk7f6")
 config = ExtResource("2_umhas")
 
 [node name="tile_x" parent="." instance=ExtResource("2_70i3o")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_70i3o")

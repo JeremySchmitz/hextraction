@@ -20,6 +20,7 @@ SignalBus="*res://Global/Signal_Bus.gd"
 TileDeck="*res://Global/Tile_Deck.gd"
 Stack="*res://Global/Stack.gd"
 GlobalEnums="*res://Global/Global_Enums.gd"
+NetworkHandler="*res://global/network_handler.gd"
 
 [global_group]
 

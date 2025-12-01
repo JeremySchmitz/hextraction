@@ -1,6 +1,5 @@
 extends Node
 
-var selectedTile: Resource : 
+var selectedTile: String:
 	set(val):
 		selectedTile = val
-	

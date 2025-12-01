@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5fab74ndibj0"]
+[gd_scene load_steps=12 format=3 uid="uid://c5fab74ndibj0"]
 
 [ext_resource type="Script" uid="uid://b7k47vvltfvc0" path="res://scripts/kill_zone.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bx5tf6vhehep3" path="res://scenes/tile_hand.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ck3g6m5kgq5wf" path="res://scenes/board_24.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dkp7smxfncba6" path="res://scenes/server_ui.tscn" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -73,4 +74,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Tile Hand" parent="CanvasLayer/Control" instance=ExtResource("3_sugp2")]
+layout_mode = 1
+
+[node name="ServerUI" parent="CanvasLayer/Control" instance=ExtResource("4_tbgi4")]
 layout_mode = 1

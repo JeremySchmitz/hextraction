@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdao81yo3lxtw"]
+[gd_scene load_steps=5 format=3 uid="uid://bdao81yo3lxtw"]
 
 [ext_resource type="Script" uid="uid://4lhqxhg68rnf" path="res://scripts/marble.gd" id="1_il0lc"]
 
@@ -9,6 +9,17 @@ radius = 0.1
 radius = 0.1
 height = 0.2
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_il0lc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="RigidBody3D" type="RigidBody3D" groups=["marble"]]
 script = ExtResource("1_il0lc")
 
@@ -18,3 +29,6 @@ shape = SubResource("SphereShape3D_sugp2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_jyhfs")
 skeleton = NodePath("../CollisionShape3D")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_il0lc")

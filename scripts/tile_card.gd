@@ -2,11 +2,10 @@ extends Control
 class_name TileCard
 
 
-
 @onready var title: Label = %name
 @onready var tileMarker: Marker3D = %tilePosition
 
-@export var tileResource: TileResource :
+@export var tileResource: TileResource:
 	set(val):
 		tileResource = val
 		_initialize()
@@ -22,7 +21,7 @@ func _ready() -> void:
 func _initialize():
 	if isReady:
 		title.text = tileResource.name
-		var model = TileDeck.TILE_LIST[tileResource.tileType]
+		var model = load(TileDeck.TILE_LIST[tileResource.tileType])
 		tileMarker.add_child(model.instantiate())
 
 

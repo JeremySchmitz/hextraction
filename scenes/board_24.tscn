@@ -148,3 +148,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.047, 7.03113, -161.042)
 
 [node name="start_06" parent="transform/board_24" instance=ExtResource("4_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.108, 7.03113, -161.042)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://bdao81yo3lxtw")
+spawn_path = NodePath("..")

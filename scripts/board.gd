@@ -16,8 +16,13 @@ func _ready() -> void:
 	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X]
 	_getTilePlaces()
 	_readyPlaces()
+	
+	for path in TileDeck.TILE_LIST.values():
+		%MultiplayerSpawner.add_spawnable_scene(path)
+		
+	print('spawns:', %MultiplayerSpawner.get_spawnable_scene_count())
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if (Input.is_key_pressed(KEY_1)):
 		print('ASTERISK')
 		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.ASTERISK]
@@ -49,13 +54,13 @@ func _onCardClicked(rsc: TileResource):
 
 func _readyPlaces():
 	for row in tiles:
-		for tile in row:
-			(tile as tilePlace).readyTile()
+		for newTile in row:
+			(newTile as tilePlace).readyTile()
 
 func _unreadyPlaces():
 	for row in tiles:
-		for tile in row:
-			(tile as tilePlace).selectable = false
+		for newTile in row:
+			(newTile as tilePlace).selectable = false
 
 func _onTileClick(pos: Vector2):
 	if (selectedTile != NO_TILE): _getTile(selectedTile).active = false
@@ -63,22 +68,27 @@ func _onTileClick(pos: Vector2):
 	selectedTile = pos
 	_unreadyPlaces()
 	
-func _onTileSet():
+func _onTileSet(pos: Vector3, rot: Vector3):
+	if !multiplayer.is_server():
+		rpc_id(1, "spawnTile", Stack.selectedTile, pos, rot)
+	else:
+		spawnTile(Stack.selectedTile, pos, rot)
 	_getTile(selectedTile).active = false
 	selectedTile = NO_TILE
 	_readyPlaces()
 
 func _onTileCanceled(pos: Vector2):
-	var tile = _getTile(pos)
-	tile.active = false
-	tile.hidePreview()
+	var newTile = _getTile(pos)
+	newTile.active = false
+	newTile.hidePreview()
 	_readyPlaces()
 
-
 func _onStartClick(pos: Vector3):
-	var marble = MARBLE.instantiate()
-	marble.position = pos
-	add_child(marble)
+	if !multiplayer.is_server():
+		rpc_id(1, "spawnMarble", pos)
+	else:
+		spawnMarble(pos)
+
 	
 func _getTilePlaces():
 	var newTiles: Array[Array] = []
@@ -88,3 +98,22 @@ func _getTilePlaces():
 
 func _getTile(pos: Vector2) -> tilePlace:
 	return tiles[pos.x][pos.y]
+
+	
+@rpc("any_peer")
+func spawnMarble(pos: Vector3):
+	var marble = MARBLE.instantiate()
+	marble.name = str(randf())
+	marble.position = pos
+	add_child(marble)
+	
+
+@rpc("any_peer")
+func spawnTile(tileRsc, pos: Vector3, rot: Vector3):
+	var newTile = load(tileRsc).instantiate()
+	print('pos:', pos)
+	print('rot:', rot)
+	newTile.position = pos
+	newTile.rotation = rot
+	add_child(newTile, true)
+	newTile.syncing()
