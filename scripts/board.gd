@@ -13,54 +13,54 @@ func _ready() -> void:
 	SignalBus.startClicked.connect(_onStartClick)
 	SignalBus.tileCardClicked.connect(_onCardClicked)
 	
-	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X]
+	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X].scenePath
 	_getTilePlaces()
 	_readyPlaces()
 	
-	for path in TileDeck.TILE_LIST.values():
-		%MultiplayerSpawner.add_spawnable_scene(path)
-		
-	print('spawns:', %MultiplayerSpawner.get_spawnable_scene_count())
+	for tile in TileDeck.TILE_LIST.values():
+		%MultiplayerSpawner.add_spawnable_scene(tile.scenePath)
+
+	Stack.deck = TileDeck.buildDeck(20)
 
 func _input(_event: InputEvent) -> void:
 	if (Input.is_key_pressed(KEY_1)):
 		print('ASTERISK')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.ASTERISK]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.ASTERISK].scenePath
 	elif (Input.is_key_pressed(KEY_2)):
 		print('BLIND_BOTTOM')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.BLIND_BOTTOM]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.BLIND_BOTTOM].scenePath
 	elif (Input.is_key_pressed(KEY_3)):
 		print('DC')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DC]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DC].scenePath
 	elif (Input.is_key_pressed(KEY_4)):
 		print('DIC')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DIC]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DIC].scenePath
 	elif (Input.is_key_pressed(KEY_5)):
 		print('J')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.J]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.J].scenePath
 	elif (Input.is_key_pressed(KEY_6)):
 		print('PACHINKO')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PACHINKO]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PACHINKO].scenePath
 	elif (Input.is_key_pressed(KEY_7)):
 		print('PEACE')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PEACE]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PEACE].scenePath
 	elif (Input.is_key_pressed(KEY_8)):
 		print('TILE_TYPES')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X]
+		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X].scenePath
 
 func _onCardClicked(rsc: TileResource):
-	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType]
+	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType].scenePath
 	pass
 
 func _readyPlaces():
 	for row in tiles:
 		for newTile in row:
-			(newTile as tilePlace).readyTile()
+			(newTile as TilePlace).readyTile()
 
 func _unreadyPlaces():
 	for row in tiles:
 		for newTile in row:
-			(newTile as tilePlace).selectable = false
+			(newTile as TilePlace).selectable = false
 
 func _onTileClick(pos: Vector2):
 	if (selectedTile != NO_TILE): _getTile(selectedTile).active = false
@@ -69,13 +69,16 @@ func _onTileClick(pos: Vector2):
 	_unreadyPlaces()
 	
 func _onTileSet(pos: Vector3, rot: Vector3):
-	if !multiplayer.is_server():
-		rpc_id(1, "spawnTile", Stack.selectedTile, pos, rot)
-	else:
-		spawnTile(Stack.selectedTile, pos, rot)
+	var selected = Stack.selectedTile
 	_getTile(selectedTile).active = false
 	selectedTile = NO_TILE
 	_readyPlaces()
+	if !multiplayer.is_server():
+		rpc_id(1, "spawnTile", selected, pos, rot)
+	else:
+		spawnTile(selected, pos, rot)
+		Stack.nextTurn()
+
 
 func _onTileCanceled(pos: Vector2):
 	var newTile = _getTile(pos)
@@ -96,7 +99,7 @@ func _getTilePlaces():
 		newTiles.append(row.get_children())
 	tiles = newTiles
 
-func _getTile(pos: Vector2) -> tilePlace:
+func _getTile(pos: Vector2) -> TilePlace:
 	return tiles[pos.x][pos.y]
 
 	

@@ -8,7 +8,7 @@ const TILE_MATERIALS = [
 	preload("res://resources/yellow.tres"),
 ]
 @export var TILE_SIZE := 1.0
-@export var GRID_SIZE := Vector2(5,4)
+@export var GRID_SIZE := Vector2(5, 4)
 
 func _ready() -> void:
 	_buildGrid()
@@ -28,10 +28,10 @@ func _buildGrid():
 			rowHeight -= 1
 			
 		for y in range(rowHeight):
-			var tile = HEX_TILE.instantiate()
-			add_child(tile)
-			tile.translate(Vector3(coordinates.x, 0, coordinates.y))
-			#tile.get_node("unit_hex/mergedBlocks(Clone)").material_override = get_tile_material(tile_index)
+			var Tile = HEX_TILE.instantiate()
+			add_child(Tile)
+			Tile.translate(Vector3(coordinates.x, 0, coordinates.y))
+			#Tile.get_node("unit_hex/mergedBlocks(Clone)").material_override = get_tile_material(tile_index)
 
 			coordinates.y += TILE_SIZE
 			tile_index += 1

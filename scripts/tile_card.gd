@@ -21,7 +21,7 @@ func _ready() -> void:
 func _initialize():
 	if isReady:
 		title.text = tileResource.name
-		var model = load(TileDeck.TILE_LIST[tileResource.tileType])
+		var model = load(TileDeck.TILE_LIST[tileResource.tileType].scenePath)
 		tileMarker.add_child(model.instantiate())
 
 

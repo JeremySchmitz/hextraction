@@ -1,5 +1,5 @@
 extends Node3D
-class_name tilePlace
+class_name TilePlace
 
 @export var grid_position := Vector2.ZERO
 
@@ -10,7 +10,7 @@ const TILE_MATERIALS = [
 	preload("res://resources/yellow.tres"),
 ]
 
-# If tile is currently being set
+# If Tile is currently being set
 var active = false:
 	set(val):
 		active = val
@@ -41,7 +41,7 @@ func _on_area_3d_mouse_entered() -> void:
 	if (!selectable): return
 	SignalBus.tileEntered.emit(grid_position)
 	%highlight_hex.show()
-	var preview: tile = load(Stack.selectedTile).instantiate()
+	var preview: Tile = load(Stack.selectedTile).instantiate()
 	if (preview.synschronizer):
 		preview.synschronizer.public_visibility = false
 	%markerTile.add_child(preview)

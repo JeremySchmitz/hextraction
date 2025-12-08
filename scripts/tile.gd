@@ -1,11 +1,11 @@
 extends Node3D
-class_name tile
+class_name Tile
 
 @export var config: TileResource
 @onready var synschronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 
-var tileRotation := 0.0 :
+var tileRotation := 0.0:
 	set(val):
 		rotation.y = val
 	get():
@@ -18,4 +18,3 @@ func _ready() -> void:
 
 func syncing():
 	synschronizer.public_visibility = true
-	

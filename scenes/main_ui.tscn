@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://5j7wnhnrebm2"]
+
+[ext_resource type="Theme" uid="uid://clywauh1wf3h7" path="res://resources/main_theme.tres" id="1_fnul3"]
+[ext_resource type="Script" uid="uid://w5vqjtrortkp" path="res://scripts/main_ui.gd" id="2_513t2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_513t2"]
+properties/0/path = NodePath(".:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Main UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_fnul3")
+script = ExtResource("2_513t2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="turn" type="Label" parent="MarginContainer/Control/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Turn"
+
+[node name="this_player" type="Label" parent="MarginContainer/Control/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "This Player"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../MarginContainer/Control/VBoxContainer/turn")
+replication_config = SubResource("SceneReplicationConfig_513t2")
