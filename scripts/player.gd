@@ -2,10 +2,9 @@ extends Node
 class_name Player
 
 var hand: Array[TileCard] = []
-var playerId := -1
+var playerId: int = -1
 
 func _ready() -> void:
-	multiplayer.get_unique_id()
 	multiplayer.peer_connected.connect(setPlayer)
 
 
@@ -20,6 +19,8 @@ func setPlayer(_peerId: int) -> void:
 	listPlayer.name = _generateName()
 	Stack.addPlayer(listPlayer)
 	SignalBus.playerSet.emit(listPlayer)
+	multiplayer.peer_connected.disconnect(setPlayer)
+	Stack.thisPlayer = self
 
 func _generateName():
 	var n = ""

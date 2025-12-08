@@ -10,7 +10,7 @@ func _ready() -> void:
 	SignalBus.tileClick.connect(_onTileClick)
 	SignalBus.tileConfirmed.connect(_onTileSet)
 	SignalBus.tileCanceled.connect(_onTileCanceled)
-	SignalBus.startClicked.connect(_onStartClick)
+	SignalBus.startAreaClicked.connect(_onStartClick)
 	SignalBus.tileCardClicked.connect(_onCardClicked)
 	
 	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X].scenePath
@@ -77,7 +77,6 @@ func _onTileSet(pos: Vector3, rot: Vector3):
 		rpc_id(1, "spawnTile", selected, pos, rot)
 	else:
 		spawnTile(selected, pos, rot)
-		Stack.nextTurn()
 
 
 func _onTileCanceled(pos: Vector2):
@@ -120,3 +119,4 @@ func spawnTile(tileRsc, pos: Vector3, rot: Vector3):
 	newTile.rotation = rot
 	add_child(newTile, true)
 	newTile.syncing()
+	Stack.nextTurn()
