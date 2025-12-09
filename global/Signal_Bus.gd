@@ -18,3 +18,6 @@ signal turnChanged(player: ListPlayer)
 signal playerSet(player: ListPlayer)
 
 signal startGame()
+
+signal tilePlayed(scenePath: String)
+signal tileDealt(tile: TileResource)

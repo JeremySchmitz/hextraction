@@ -78,6 +78,7 @@ func _onTileSet(pos: Vector3, rot: Vector3):
 	else:
 		spawnTile(selected, pos, rot)
 
+	SignalBus.tilePlayed.emit(selected)
 
 func _onTileCanceled(pos: Vector2):
 	var newTile = _getTile(pos)

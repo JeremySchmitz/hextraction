@@ -17,6 +17,8 @@ var playerList: Array[ListPlayer] = []
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_onConnected)
 	SignalBus.startGame.connect(onStartGame)
+	SignalBus.tilePlayed.connect(_onTilePlayed)
+
 
 func _input(event: InputEvent) -> void:
 	var isMouse = (
@@ -105,3 +107,18 @@ func _getNextPlayer():
 
 func _onConnected(_peerId: int):
 	isConnected = true
+
+func _onTilePlayed(_scenePath: String):
+	# TODO case where no cards
+	if deck.size() < 1: return
+
+	rpc("_dealCard")
+	_dealCard(true)
+	
+
+@rpc("any_peer")
+func _dealCard(addToHand = false):
+	var card: TileResource = deck.pop_front()
+
+	if addToHand:
+		SignalBus.tileDealt.emit(card)

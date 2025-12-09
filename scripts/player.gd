@@ -1,15 +1,11 @@
 extends Node
 class_name Player
 
-var hand: Array[TileCard] = []
 var playerId: int = -1
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(setPlayer)
 
-
-func removeCard(tile: String):
-	var i = hand.find(tile)
 
 func setPlayer(_peerId: int) -> void:
 	var id = multiplayer.multiplayer_peer.get_unique_id()
