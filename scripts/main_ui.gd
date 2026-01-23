@@ -3,6 +3,8 @@ extends Control
 func _ready() -> void:
 	SignalBus.turnChanged.connect(setTurn)
 	SignalBus.playerSet.connect(setPlayer)
+	
+	if (!multiplayer.is_server()): %start.hide()
 
 func setTurn(name: String):
 	%turn.text = 'Current Player: {0}'.format([name])

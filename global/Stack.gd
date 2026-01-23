@@ -8,7 +8,7 @@ var selectedTile: String:
 
 var deck: Array[TileResource] = []
 var gameStarted := false
-var curentPlayer := 0
+var currentPlayer := 0
 var currentPlayerId := -1
 
 var thisPlayer: Player
@@ -58,7 +58,6 @@ func _onStartGame():
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
 
-
 func nextTurn():
 	if !multiplayer.is_server():
 		rpc_id(1, "_nextTurn")
@@ -67,10 +66,10 @@ func nextTurn():
 
 @rpc("any_peer")
 func _nextTurn():
-	if curentPlayer == playerList.size() - 1:
-		curentPlayer = 0
+	if currentPlayer == playerList.size() - 1:
+		currentPlayer = 0
 	else:
-		curentPlayer = curentPlayer + 1
+		currentPlayer = currentPlayer + 1
 
 	print('next turn')
 	if multiplayer.is_server(): updateCurrentPlayerTag()
@@ -78,8 +77,8 @@ func _nextTurn():
 
 
 func updateCurrentPlayerTag():
-	rpc("_updateCurrentPlayerTag", playerList[curentPlayer].name)
-	_updateCurrentPlayerTag(playerList[curentPlayer].name)
+	rpc("_updateCurrentPlayerTag", playerList[currentPlayer].name)
+	_updateCurrentPlayerTag(playerList[currentPlayer].name)
 
 @rpc("any_peer")
 func _updateCurrentPlayerTag(n: String):
@@ -87,22 +86,24 @@ func _updateCurrentPlayerTag(n: String):
 
 
 func updateCurrentPlayerId():
-	rpc("_updateCurrentPlayerId", playerList[curentPlayer].id)
-	_updateCurrentPlayerId(playerList[curentPlayer].id)
+	rpc("_updateCurrentPlayerId", playerList[currentPlayer].id)
+	_updateCurrentPlayerId(playerList[currentPlayer].id)
 
 @rpc("any_peer")
 func _updateCurrentPlayerId(id: int):
+	print('update player id:', id)
 	currentPlayerId = id
+	print('currentPlayerId:', id)
 
 
 @rpc("any_peer")
 func _isPlayerTurn(id) -> bool:
-	return id != null && id == playerList[curentPlayer].id
+	return id != null && id == playerList[currentPlayer].id
 
 
 @rpc("any_peer")
 func _getNextPlayer():
-	return playerList[curentPlayer].name
+	return playerList[currentPlayer].name
 
 
 func _onConnected(_peerId: int):
@@ -122,3 +123,7 @@ func _dealCard(addToHand = false):
 
 	if addToHand:
 		SignalBus.tileDealt.emit(card)
+
+func isTurn():
+	if (!thisPlayer): return false
+	return currentPlayerId == thisPlayer.playerId

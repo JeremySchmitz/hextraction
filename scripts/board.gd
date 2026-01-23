@@ -13,7 +13,6 @@ func _ready() -> void:
 	SignalBus.startAreaClicked.connect(_onStartClick)
 	SignalBus.tileCardClicked.connect(_onCardClicked)
 	
-	Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X].scenePath
 	_getTilePlaces()
 	_readyPlaces()
 	
@@ -21,32 +20,6 @@ func _ready() -> void:
 		%MultiplayerSpawner.add_spawnable_scene(tile.scenePath)
 
 	Stack.deck = TileDeck.buildDeck(20)
-
-func _input(_event: InputEvent) -> void:
-	if (Input.is_key_pressed(KEY_1)):
-		print('ASTERISK')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.ASTERISK].scenePath
-	elif (Input.is_key_pressed(KEY_2)):
-		print('BLIND_BOTTOM')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.BLIND_BOTTOM].scenePath
-	elif (Input.is_key_pressed(KEY_3)):
-		print('DC')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DC].scenePath
-	elif (Input.is_key_pressed(KEY_4)):
-		print('DIC')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.DIC].scenePath
-	elif (Input.is_key_pressed(KEY_5)):
-		print('J')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.J].scenePath
-	elif (Input.is_key_pressed(KEY_6)):
-		print('PACHINKO')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PACHINKO].scenePath
-	elif (Input.is_key_pressed(KEY_7)):
-		print('PEACE')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.PEACE].scenePath
-	elif (Input.is_key_pressed(KEY_8)):
-		print('TILE_TYPES')
-		Stack.selectedTile = TileDeck.TILE_LIST[TileDeck.TILE_TYPES.X].scenePath
 
 func _onCardClicked(rsc: TileResource):
 	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType].scenePath
@@ -63,6 +36,8 @@ func _unreadyPlaces():
 			(newTile as TilePlace).selectable = false
 
 func _onTileClick(pos: Vector2):
+	if (!Stack.isTurn() || !Stack.selectedTile): return
+	
 	if (selectedTile != NO_TILE): _getTile(selectedTile).active = false
 	_getTile(pos).active = true
 	selectedTile = pos

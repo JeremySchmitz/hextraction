@@ -42,7 +42,6 @@ billboard_keep_scale = true
 
 [node name="HexTile" type="Node3D"]
 script = ExtResource("1_8oknp")
-grid_position = null
 
 [node name="transform" type="Node3D" parent="."]
 transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 0, 0, 0)

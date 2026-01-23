@@ -23,6 +23,7 @@ transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, -0.025)
 
 [node name="HexTile_0_0" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
+grid_position = Vector2(0, 0)
 
 [node name="HexTile_0_1" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 1)

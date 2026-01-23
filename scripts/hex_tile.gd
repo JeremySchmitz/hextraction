@@ -38,7 +38,12 @@ func hidePreview():
 			child.queue_free()
 
 func _on_area_3d_mouse_entered() -> void:
-	if (!selectable): return
+	if (!Stack.gameStarted
+		|| !Stack.isTurn()
+		|| !selectable
+		|| !Stack.selectedTile
+	): return
+
 	SignalBus.tileEntered.emit(grid_position)
 	%highlight_hex.show()
 	var preview: Tile = load(Stack.selectedTile).instantiate()
@@ -56,6 +61,8 @@ func _on_area_3d_mouse_exited() -> void:
 
 
 func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	if (!selectable): return
+	
 	if (event is InputEventMouseButton
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.pressed
