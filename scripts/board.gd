@@ -1,5 +1,5 @@
 extends Node3D
-const NO_TILE = Vector2(-1, -1)
+const NO_TILE := Vector2(-1, -1)
 const MARBLE = preload("res://scenes/marble.tscn")
 
 var tiles: Array[Array] = []
@@ -25,10 +25,23 @@ func _onCardClicked(rsc: TileResource):
 	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType].scenePath
 	pass
 
+func setHasTile(pos: Vector2, val = true):
+	_setHasTile(pos, val)
+	rpc('_setHasTile', pos, val)
+
+@rpc("any_peer")
+func _setHasTile(pos: Vector2, val = true):
+	_getTile(pos).hasTile = val
+
+func readyPlaces():
+	_readyPlaces()
+	rpc('_readyPlaces')
+
+@rpc("any_peer")
 func _readyPlaces():
 	for row in tiles:
 		for newTile in row:
-			(newTile as TilePlace).readyTile()
+			(newTile as TilePlace).readyTile(tiles)
 
 func _unreadyPlaces():
 	for row in tiles:
@@ -44,16 +57,18 @@ func _onTileClick(pos: Vector2):
 	_unreadyPlaces()
 	
 func _onTileSet(pos: Vector3, rot: Vector3):
-	var selected = Stack.selectedTile
 	_getTile(selectedTile).active = false
-	selectedTile = NO_TILE
-	_readyPlaces()
+	setHasTile(selectedTile)
+	readyPlaces()
+	
+	var selectedRSC = Stack.selectedTile
 	if !multiplayer.is_server():
-		rpc_id(1, "spawnTile", selected, pos, rot)
+		rpc_id(1, "spawnTile", selectedRSC, pos, rot)
 	else:
-		spawnTile(selected, pos, rot)
+		spawnTile(selectedRSC, pos, rot)
 
-	SignalBus.tilePlayed.emit(selected)
+	selectedTile = NO_TILE
+	SignalBus.tilePlayed.emit(selectedRSC)
 
 func _onTileCanceled(pos: Vector2):
 	var newTile = _getTile(pos)
@@ -89,8 +104,6 @@ func spawnMarble(pos: Vector3):
 @rpc("any_peer")
 func spawnTile(tileRsc, pos: Vector3, rot: Vector3):
 	var newTile = load(tileRsc).instantiate()
-	print('pos:', pos)
-	print('rot:', rot)
 	newTile.position = pos
 	newTile.rotation = rot
 	add_child(newTile, true)

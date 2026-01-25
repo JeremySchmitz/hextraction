@@ -53,7 +53,6 @@ func onStartGame():
 
 @rpc("any_peer")
 func _onStartGame():
-	print('startGame')
 	gameStarted = true
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
@@ -71,7 +70,6 @@ func _nextTurn():
 	else:
 		currentPlayer = currentPlayer + 1
 
-	print('next turn')
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
 
@@ -91,9 +89,7 @@ func updateCurrentPlayerId():
 
 @rpc("any_peer")
 func _updateCurrentPlayerId(id: int):
-	print('update player id:', id)
 	currentPlayerId = id
-	print('currentPlayerId:', id)
 
 
 @rpc("any_peer")
