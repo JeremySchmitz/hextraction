@@ -2,7 +2,7 @@ extends Control
 
 const TILE_CARD = preload("res://scenes/tile_card.tscn")
 
-@export var cards: Array[TileResource]
+@export var cards: Array[TileResource] = []
 
 func _ready() -> void:
 	SignalBus.tilePlayed.connect(_onTilePlayed)

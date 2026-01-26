@@ -6,6 +6,7 @@ var selectedTile: String:
 	set(val):
 		selectedTile = val
 
+var deckSize := 20
 var deck: Array[TileResource] = []
 var gameStarted := false
 var currentPlayerIdx := 0
@@ -37,6 +38,7 @@ func _addPlayer(id: int, playerName: String):
 		playerList.append(player)
 		
 func onStartGame():
+	rpc_id(1, 'dealHand')
 	rpc("_onStartGame")
 	_onStartGame()
 
@@ -109,6 +111,7 @@ func _onTilePlayed(_scenePath: String):
 @rpc("any_peer")
 func _dealCard(addToHand = false):
 	var card: TileResource = deck.pop_front()
+	SignalBus.updateDeckCount.emit()
 
 	if addToHand:
 		SignalBus.tileDealt.emit(card)
@@ -119,3 +122,21 @@ func isTurn():
 
 func getCurrentPlayer():
 	return playerList[currentPlayerIdx]
+
+
+@rpc("any_peer")
+func dealHand():
+	if !multiplayer.is_server(): return
+
+	for i in range(3):
+		for player in playerList:
+			if player.id == 1: _dealCard(true)
+			else: rpc_id(player.id, '_dealCard', true)
+
+			for player2 in playerList:
+				if player2.id != player.id:
+					if player2.id == 1: _dealCard(false)
+					else: rpc_id(player2.id, '_dealCard', false)
+
+func buildDeck():
+	deck = TileDeck.buildDeck(deckSize)

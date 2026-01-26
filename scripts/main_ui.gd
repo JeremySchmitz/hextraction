@@ -22,6 +22,8 @@ func _ready() -> void:
 	SignalBus.marbleStopped.connect(_on_marble_stopped)
 	SignalBus.marbleKilled.connect(_on_marbled_killed)
 	SignalBus.startAreaClicked.connect(_on_marble_dropped)
+
+	SignalBus.updateDeckCount.connect(_update_deck_count)
 	
 	if (!multiplayer.is_server()): %start.hide()
 
@@ -130,3 +132,6 @@ func _on_marble_dropped(_pos: Vector3):
 @rpc("any_peer")
 func _update_kill_btn(val: bool):
 	%KillMarbleBtn.disabled = val
+
+func _update_deck_count():
+	%deck.text = 'Deck: {0}/{1}'.format([Stack.deck.size(), Stack.deckSize])

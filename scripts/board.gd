@@ -19,7 +19,7 @@ func _ready() -> void:
 	for tile in TileDeck.TILE_LIST.values():
 		%MultiplayerSpawner.add_spawnable_scene(tile.scenePath)
 
-	Stack.deck = TileDeck.buildDeck(20)
+	Stack.buildDeck()
 
 func _onCardClicked(rsc: TileResource):
 	Stack.selectedTile = TileDeck.TILE_LIST[rsc.tileType].scenePath

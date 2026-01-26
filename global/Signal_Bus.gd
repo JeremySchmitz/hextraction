@@ -23,3 +23,4 @@ signal startGame()
 
 signal tilePlayed(scenePath: String)
 signal tileDealt(tile: TileResource)
+signal updateDeckCount()

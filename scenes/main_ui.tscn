@@ -60,6 +60,11 @@ custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Turn"
 
+[node name="deck" type="Label" parent="MarginContainer/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "deck"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
