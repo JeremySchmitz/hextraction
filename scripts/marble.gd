@@ -7,6 +7,8 @@ var is_moving = true
 var timer: Timer
 
 func _ready() -> void:
+	SignalBus.killMarble.connect(_killSelf)
+
 	timer = Timer.new()
 	timer.wait_time = SETTLE_TIME
 	timer.timeout.connect(_stopped)
@@ -25,3 +27,7 @@ func _process(_delta: float) -> void:
 
 func _stopped():
 	SignalBus.marbleStopped.emit(self)
+
+func _killSelf():
+	queue_free()
+	SignalBus.marbleKilled.emit(self)

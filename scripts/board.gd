@@ -62,13 +62,12 @@ func _onTileSet(pos: Vector3, rot: Vector3):
 	readyPlaces()
 	
 	var selectedRSC = Stack.selectedTile
+	selectedTile = NO_TILE
+	SignalBus.tilePlayed.emit(selectedRSC)
 	if !multiplayer.is_server():
 		rpc_id(1, "spawnTile", selectedRSC, pos, rot)
 	else:
 		spawnTile(selectedRSC, pos, rot)
-
-	selectedTile = NO_TILE
-	SignalBus.tilePlayed.emit(selectedRSC)
 
 func _onTileCanceled(pos: Vector2):
 	var newTile = _getTile(pos)

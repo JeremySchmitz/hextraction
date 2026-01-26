@@ -23,18 +23,6 @@ func _ready() -> void:
 	SignalBus.tilePlayed.connect(_onTilePlayed)
 
 
-func _input(event: InputEvent) -> void:
-	var isMouse = (
-			event is InputEventMouseButton
-			and event.button_index == MOUSE_BUTTON_LEFT
-			and event.pressed)
-	if thisPlayer && isConnected:
-		if !isMouse: return
-		var isPlayerTurn = thisPlayer.playerId == currentPlayerId
-		if (gameStarted && !isPlayerTurn):
-			get_viewport().set_input_as_handled()
-	
-
 func addPlayer(player: ListPlayer):
 	rpc("_addPlayer", player.id, player.name)
 	_addPlayer(player.id, player.name)

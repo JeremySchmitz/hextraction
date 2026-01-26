@@ -9,6 +9,9 @@ var marbleInGoal = false
 
 var turnTimer: Timer
 
+var marbleDropped = false
+var killMarbleCount = 0
+
 func _ready() -> void:
 	SignalBus.turnChanged.connect(setTurn)
 	SignalBus.playerSet.connect(setPlayer)
@@ -18,6 +21,7 @@ func _ready() -> void:
 	SignalBus.marbleInGoal.connect(_on_marble_in_goal)
 	SignalBus.marbleStopped.connect(_on_marble_stopped)
 	SignalBus.marbleKilled.connect(_on_marbled_killed)
+	SignalBus.startAreaClicked.connect(_on_marble_dropped)
 	
 	if (!multiplayer.is_server()): %start.hide()
 
@@ -35,6 +39,7 @@ func _on_start_pressed() -> void:
 	%start.disabled = true
 	%start.release_focus()
 	rpc("_disable_start_button", true)
+	pass
 
 
 @rpc("any_peer")
@@ -82,3 +87,46 @@ func _build_turn_timer():
 	turnTimer.timeout.connect(%NextTurnBanner.hide)
 	turnTimer.one_shot = true
 	add_child(turnTimer)
+
+func _on_kill_marble_btn_pressed() -> void:
+	if (!multiplayer.is_server()):
+		rpc_id(1, 'incrementMarbleKillCount')
+	else:
+		incrementMarbleKillCount()
+
+	%KillMarbleBtn.disabled = true
+	
+
+@rpc("any_peer")
+func incrementMarbleKillCount():
+	killMarbleCount = killMarbleCount + 1
+	updateKillCountLabel()
+	rpc('setMarbleKillCount', killMarbleCount)
+
+	if killMarbleCount == Stack.playerList.size():
+		SignalBus.killMarble.emit()
+
+@rpc("authority")
+func setMarbleKillCount(count: int):
+	killMarbleCount = count
+	updateKillCountLabel()
+
+@rpc("authority")
+func marbleKilled(_marble: Marble):
+	killMarbleCount = 0
+	updateKillCountLabel()
+	rpc('_update_kill_btn', true)
+
+func updateKillCountLabel():
+	%KillMarbleCount.text = '{0}/{1}'.format([killMarbleCount, Stack.playerList.size()])
+
+
+func _on_marble_dropped(_pos: Vector3):
+	marbleDropped = true
+	_update_kill_btn(false)
+	rpc('_update_kill_btn', false)
+
+
+@rpc("any_peer")
+func _update_kill_btn(val: bool):
+	%KillMarbleBtn.disabled = val

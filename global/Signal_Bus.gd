@@ -12,6 +12,7 @@ signal startAreaClicked(pos: Vector3)
 signal marbleInGoal(val: bool)
 signal marbleStopped(marble: Marble)
 signal marbleKilled(marble: Marble)
+signal killMarble()
 
 signal tileCardClicked(rsc: TileResource)
 
