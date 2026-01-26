@@ -8,8 +8,9 @@ var selectedTile: String:
 
 var deck: Array[TileResource] = []
 var gameStarted := false
-var currentPlayer := 0
+var currentPlayerIdx := 0
 var currentPlayerId := -1
+var gameWon = false
 
 var thisPlayer: Player
 var playerList: Array[ListPlayer] = []
@@ -33,10 +34,8 @@ func _input(event: InputEvent) -> void:
 	
 
 func addPlayer(player: ListPlayer):
-	if !multiplayer.is_server():
-		rpc_id(1, "_addPlayer", player.id, player.name)
-	else:
-		_addPlayer(player.id, player.name)
+	rpc("_addPlayer", player.id, player.name)
+	_addPlayer(player.id, player.name)
 
 @rpc("any_peer")
 func _addPlayer(id: int, playerName: String):
@@ -65,18 +64,18 @@ func nextTurn():
 
 @rpc("any_peer")
 func _nextTurn():
-	if currentPlayer == playerList.size() - 1:
-		currentPlayer = 0
+	if currentPlayerIdx == playerList.size() - 1:
+		currentPlayerIdx = 0
 	else:
-		currentPlayer = currentPlayer + 1
+		currentPlayerIdx = currentPlayerIdx + 1
 
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
 
 
 func updateCurrentPlayerTag():
-	rpc("_updateCurrentPlayerTag", playerList[currentPlayer].name)
-	_updateCurrentPlayerTag(playerList[currentPlayer].name)
+	rpc("_updateCurrentPlayerTag", getCurrentPlayer().name)
+	_updateCurrentPlayerTag(getCurrentPlayer().name)
 
 @rpc("any_peer")
 func _updateCurrentPlayerTag(n: String):
@@ -84,8 +83,8 @@ func _updateCurrentPlayerTag(n: String):
 
 
 func updateCurrentPlayerId():
-	rpc("_updateCurrentPlayerId", playerList[currentPlayer].id)
-	_updateCurrentPlayerId(playerList[currentPlayer].id)
+	rpc("_updateCurrentPlayerId", getCurrentPlayer().id)
+	_updateCurrentPlayerId(getCurrentPlayer().id)
 
 @rpc("any_peer")
 func _updateCurrentPlayerId(id: int):
@@ -94,12 +93,12 @@ func _updateCurrentPlayerId(id: int):
 
 @rpc("any_peer")
 func _isPlayerTurn(id) -> bool:
-	return id != null && id == playerList[currentPlayer].id
+	return id != null && id == getCurrentPlayer().id
 
 
 @rpc("any_peer")
 func _getNextPlayer():
-	return playerList[currentPlayer].name
+	return getCurrentPlayer().name
 
 
 func _onConnected(_peerId: int):
@@ -123,3 +122,6 @@ func _dealCard(addToHand = false):
 func isTurn():
 	if (!thisPlayer): return false
 	return currentPlayerId == thisPlayer.playerId
+
+func getCurrentPlayer():
+	return playerList[currentPlayerIdx]

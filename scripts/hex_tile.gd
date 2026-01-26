@@ -64,6 +64,7 @@ func hidePreview():
 
 func _on_area_3d_mouse_entered() -> void:
 	if (!Stack.gameStarted
+		|| Stack.gameWon
 		|| !Stack.isTurn()
 		|| !selectable
 		|| !Stack.selectedTile
