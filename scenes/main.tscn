@@ -21,12 +21,12 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
-size = Vector3(10, 1, 15)
+size = Vector3(10, 1, 10)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0wfyh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sugp2"]
-size = Vector3(10, 1, 15)
+size = Vector3(10, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o5qli"]
 size = Vector3(50, 1, 50)

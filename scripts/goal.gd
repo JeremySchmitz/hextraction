@@ -6,17 +6,14 @@ var marbleInGoal = false
 func _ready() -> void:
 	connect("body_shape_entered", _on_body_shape_entered)
 	connect("body_shape_exited", _on_body_shape_exited)
-	SignalBus.marbleStopped.connect(_on_marble_stopped)
 	
 func _on_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int):
 	if body.is_in_group('marble'):
 		marbleInGoal = true
+		SignalBus.marbleInGoal.emit(marbleInGoal)
 
 
 func _on_body_shape_exited(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int):
 	if body.is_in_group('marble'):
 		marbleInGoal = false
-
-
-func _on_marble_stopped(marble: Marble):
-	if marbleInGoal: SignalBus.goalReached.emit()
+		SignalBus.marbleInGoal.emit(marbleInGoal)

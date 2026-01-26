@@ -9,8 +9,9 @@ signal tileCanceled(pos: Vector2)
 
 signal startAreaClicked(pos: Vector3)
 
-signal goalReached()
+signal marbleInGoal(val: bool)
 signal marbleStopped(marble: Marble)
+signal marbleKilled(marble: Marble)
 
 signal tileCardClicked(rsc: TileResource)
 

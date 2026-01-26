@@ -33,8 +33,8 @@ func _ready() -> void:
 func hasPreview():
 	return %markerTile.get_child_count() == 1
 
-func readyTile(tiles: Array[Array]):
-	if (hasTile):
+func readyTile(tiles: Array[Array], tileSet):
+	if (tileSet || hasTile):
 		selectable = false
 	elif (starter_tile):
 		selectable = true

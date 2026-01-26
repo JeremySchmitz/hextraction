@@ -10,6 +10,8 @@ var deck: Array[TileResource] = []
 var gameStarted := false
 var currentPlayerIdx := 0
 var currentPlayerId := -1
+var tilePlayed = false
+
 var gameWon = false
 
 var thisPlayer: Player
@@ -69,6 +71,8 @@ func _nextTurn():
 	else:
 		currentPlayerIdx = currentPlayerIdx + 1
 
+	tilePlayed = false
+
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
 
@@ -105,6 +109,8 @@ func _onConnected(_peerId: int):
 	isConnected = true
 
 func _onTilePlayed(_scenePath: String):
+	tilePlayed = true
+
 	# TODO case where no cards
 	if deck.size() < 1: return
 

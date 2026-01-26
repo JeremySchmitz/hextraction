@@ -14,7 +14,7 @@ func _ready() -> void:
 	SignalBus.tileCardClicked.connect(_onCardClicked)
 	
 	_getTilePlaces()
-	_readyPlaces()
+	_readyPlaces(false)
 	
 	for tile in TileDeck.TILE_LIST.values():
 		%MultiplayerSpawner.add_spawnable_scene(tile.scenePath)
@@ -34,14 +34,14 @@ func _setHasTile(pos: Vector2, val = true):
 	_getTile(pos).hasTile = val
 
 func readyPlaces():
-	_readyPlaces()
-	rpc('_readyPlaces')
+	_readyPlaces(true)
+	rpc('_readyPlaces', false)
 
 @rpc("any_peer")
-func _readyPlaces():
+func _readyPlaces(tileSet: bool):
 	for row in tiles:
 		for newTile in row:
-			(newTile as TilePlace).readyTile(tiles)
+			(newTile as TilePlace).readyTile(tiles, tileSet)
 
 func _unreadyPlaces():
 	for row in tiles:
@@ -74,7 +74,7 @@ func _onTileCanceled(pos: Vector2):
 	var newTile = _getTile(pos)
 	newTile.active = false
 	newTile.hidePreview()
-	_readyPlaces()
+	_readyPlaces(false)
 
 func _onStartClick(pos: Vector3):
 	if !multiplayer.is_server():
@@ -108,4 +108,3 @@ func spawnTile(tileRsc, pos: Vector3, rot: Vector3):
 	newTile.rotation = rot
 	add_child(newTile, true)
 	newTile.syncing()
-	Stack.nextTurn()

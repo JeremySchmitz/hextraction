@@ -10,6 +10,7 @@ func _ready() -> void:
 	timer = Timer.new()
 	timer.wait_time = SETTLE_TIME
 	timer.timeout.connect(_stopped)
+	timer.one_shot = true
 	add_child(timer)
 
 func _process(_delta: float) -> void:
