@@ -6,7 +6,7 @@ var selectedTile: String:
 	set(val):
 		selectedTile = val
 
-var deckSize := 20
+var deckSize := 40
 var deck: Array[TileResource] = []
 var gameStarted := false
 var currentPlayerIdx := 0
@@ -44,6 +44,9 @@ func onStartGame():
 
 @rpc("any_peer")
 func _onStartGame():
+	if !multiplayer.is_server():
+		rpc_id(1, "randomizePlayerList")
+	else: randomizePlayerList()
 	gameStarted = true
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
@@ -140,3 +143,18 @@ func dealHand():
 
 func buildDeck():
 	deck = TileDeck.buildDeck(deckSize)
+
+
+@rpc("any_peer")
+func randomizePlayerList():
+	var rng := RandomNumberGenerator.new()
+	randomize()
+	var s = rng.randi()
+	seed(s)
+	playerList.shuffle()
+	rpc('_randomizePlayerList', s)
+
+@rpc("authority")
+func _randomizePlayerList(s):
+	seed(s)
+	playerList.shuffle()
