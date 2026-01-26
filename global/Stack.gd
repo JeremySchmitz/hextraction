@@ -36,9 +36,23 @@ func _addPlayer(id: int, playerName: String):
 		player.id = id
 		player.name = playerName
 		playerList.append(player)
+
+	
+@rpc("any_peer")
+func _sendPlayerName():
+	rpc('_updatePlayerName', thisPlayer.playerId, thisPlayer.playerName)
+
+@rpc("any_peer")
+func _updatePlayerName(id: int, playerName: String):
+	var i = playerList.find_custom(func(p): return p.id == id)
+	var player: ListPlayer = playerList[i]
+	if player: player.setPlayerName(playerName)
 		
 func onStartGame():
-	rpc_id(1, 'dealHand')
+	if !multiplayer.is_server():
+		rpc_id(1, 'dealHand')
+	else: dealHand()
+	
 	rpc("_onStartGame")
 	_onStartGame()
 

@@ -14,8 +14,6 @@ var killMarbleCount = 0
 
 func _ready() -> void:
 	SignalBus.turnChanged.connect(setTurn)
-	SignalBus.playerSet.connect(setPlayer)
-
 	SignalBus.turnChanged.connect(on_turn_change)
 
 	SignalBus.marbleInGoal.connect(_on_marble_in_goal)
@@ -26,14 +24,15 @@ func _ready() -> void:
 	SignalBus.updateDeckCount.connect(_update_deck_count)
 	
 	if (!multiplayer.is_server()): %start.hide()
+	setPlayer(Stack.thisPlayer.playerName)
 
 	_build_turn_timer()
 
 func setTurn(playerName: String):
 	%turn.text = 'Current Player: {0}'.format([playerName])
 
-func setPlayer(player: ListPlayer):
-	%"this_player".text = '{0} {1}'.format([player.name, player.id])
+func setPlayer(playerName: String):
+	%"this_player".text = playerName
 
 
 func _on_start_pressed() -> void:
@@ -76,6 +75,8 @@ func _on_goal_reached():
 	_setWinnerBanner()
 
 func _on_marbled_killed(_marble: Marble):
+	rpc('marbleKilled')
+	marbleKilled()
 	Stack.nextTurn()
 
 func _setWinnerBanner():
@@ -114,7 +115,7 @@ func setMarbleKillCount(count: int):
 	updateKillCountLabel()
 
 @rpc("authority")
-func marbleKilled(_marble: Marble):
+func marbleKilled():
 	killMarbleCount = 0
 	updateKillCountLabel()
 	rpc('_update_kill_btn', true)

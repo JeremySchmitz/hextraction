@@ -2,6 +2,10 @@ extends Node
 class_name Player
 
 var playerId: int = -1
+var playerName: String
+
+func _init(n = '') -> void:
+	playerName = n
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(setPlayer)
@@ -12,15 +16,11 @@ func setPlayer(_peerId: int) -> void:
 	playerId = id
 	var listPlayer := ListPlayer.new()
 	listPlayer.id = id
-	listPlayer.name = _generateName()
+	listPlayer.name = playerName
 	Stack.addPlayer(listPlayer)
 	SignalBus.playerSet.emit(listPlayer)
 	multiplayer.peer_connected.disconnect(setPlayer)
 	Stack.thisPlayer = self
 
-func _generateName():
-	var n = ""
-	for i in 3:
-		var letter = char("A".unicode_at(0) + randi() % 26)
-		n += letter
-	return n
+func setPlayerName(n: String):
+	playerName = n
