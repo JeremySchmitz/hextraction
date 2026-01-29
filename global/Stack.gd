@@ -22,7 +22,25 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(_onConnected)
 	SignalBus.startGame.connect(onStartGame)
 	SignalBus.tilePlayed.connect(_onTilePlayed)
+	SignalBus.restartGame.connect(_resetGame)
 
+func _resetGame():
+	deck = []
+	gameStarted = false
+	currentPlayerIdx = 0
+	tilePlayed = false
+	gameWon = false
+	selectedTile = ''
+
+	if multiplayer.get_peers().size() and multiplayer.is_server():
+		randomizePlayerList()
+	
+
+func reset():
+	_resetGame()
+	thisPlayer = null
+	playerList = []
+	
 
 func addPlayer(player: ListPlayer):
 	rpc("_addPlayer", player.id, player.name)
@@ -49,18 +67,17 @@ func _updatePlayerName(id: int, playerName: String):
 	if player: player.setPlayerName(playerName)
 		
 func onStartGame():
-	if !multiplayer.is_server():
-		rpc_id(1, 'dealHand')
-	else: dealHand()
-	
-	rpc("_onStartGame")
-	_onStartGame()
+	if multiplayer.is_server():
+		dealHand()
+		_onStartGame(true)
+		rpc("_onStartGame", false)
 
 @rpc("any_peer")
-func _onStartGame():
-	if !multiplayer.is_server():
-		rpc_id(1, "randomizePlayerList")
-	else: randomizePlayerList()
+func _onStartGame(randomizeList = false):
+	if randomizeList:
+		if !multiplayer.is_server():
+			rpc_id(1, "randomizePlayerList")
+		else: randomizePlayerList()
 	gameStarted = true
 	if multiplayer.is_server(): updateCurrentPlayerTag()
 	if multiplayer.is_server(): updateCurrentPlayerId()
@@ -100,6 +117,14 @@ func updateCurrentPlayerId():
 @rpc("any_peer")
 func _updateCurrentPlayerId(id: int):
 	currentPlayerId = id
+
+func updateCurrentPlayerIdx():
+	rpc("_updateCurrentPlayerIdx", currentPlayerIdx)
+	_updateCurrentPlayerId(currentPlayerIdx)
+
+@rpc("any_peer")
+func _updateCurrentPlayerIdx(idx: int):
+	currentPlayerIdx = idx
 
 
 @rpc("any_peer")
@@ -161,14 +186,16 @@ func buildDeck():
 
 @rpc("any_peer")
 func randomizePlayerList():
-	var rng := RandomNumberGenerator.new()
 	randomize()
-	var s = rng.randi()
-	seed(s)
 	playerList.shuffle()
-	rpc('_randomizePlayerList', s)
+	var ids = playerList.map(func(p): return p.id)
+	rpc('_randomizePlayerList', ids)
 
 @rpc("authority")
-func _randomizePlayerList(s):
-	seed(s)
-	playerList.shuffle()
+func _randomizePlayerList(ids):
+	var list: Array[ListPlayer] = []
+	for id in ids:
+		var player = playerList.find_custom(func(p): return p.id == id)
+		list.append(playerList[player])
+
+	playerList = list

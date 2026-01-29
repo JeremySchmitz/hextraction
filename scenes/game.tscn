@@ -30,7 +30,7 @@ size = Vector3(10, 1, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_o5qli"]
 size = Vector3(50, 1, 50)
 
-[node name="Main" type="Node3D"]
+[node name="Game" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")

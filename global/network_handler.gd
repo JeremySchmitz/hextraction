@@ -14,3 +14,6 @@ func startClient(ipAddress: String):
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(ipAddress, PORT)
 	multiplayer.multiplayer_peer = peer
+
+func closePeer():
+	peer.close()

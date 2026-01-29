@@ -1,5 +1,6 @@
 extends Control
 
+const MAIN_MENU_PATH = 'res://scenes/main_menu.tscn'
 const WIN_TEXT = "{0} has won!"
 const NEXT_TURN_TEXT = "{0}'s Turn!"
 const HIDE_TURN_TEXT_TIME = 3.0
@@ -22,8 +23,12 @@ func _ready() -> void:
 	SignalBus.startAreaClicked.connect(_on_marble_dropped)
 
 	SignalBus.updateDeckCount.connect(_update_deck_count)
+
+	SignalBus.restartGame.connect(_reset)
 	
-	if (!multiplayer.is_server()): %start.hide()
+	if (!multiplayer.is_server()):
+		%start.hide()
+		%PlayAgainBtn.hide()
 	setPlayer(Stack.thisPlayer.playerName)
 
 	_build_turn_timer()
@@ -36,12 +41,16 @@ func setPlayer(playerName: String):
 
 
 func _on_start_pressed() -> void:
-	SignalBus.startGame.emit()
 	%start.disabled = true
 	%start.release_focus()
 	rpc("_disable_start_button", true)
-	pass
+	if !multiplayer.is_server():
+		rpc_id(1, "_start_pressed")
+	else: SignalBus.startGame.emit()
 
+@rpc("any_peer")
+func _start_pressed():
+	SignalBus.startGame.emit()
 
 @rpc("any_peer")
 func _disable_start_button(val: bool):
@@ -81,7 +90,7 @@ func _on_marbled_killed(_marble: Marble):
 
 func _setWinnerBanner():
 	%Winner_Banner.text = WIN_TEXT.format([Stack.getCurrentPlayer().name])
-	%Winner_Banner.show()
+	%GameEndController.show()
 
 
 func _build_turn_timer():
@@ -136,3 +145,41 @@ func _update_kill_btn(val: bool):
 
 func _update_deck_count():
 	%deck.text = 'Deck: {0}/{1}'.format([Stack.deck.size(), Stack.deckSize])
+
+
+func _on_play_again_btn_pressed() -> void:
+	rpc('_resetGame')
+	_resetGame()
+
+
+@rpc("any_peer")
+func _resetGame():
+	SignalBus.clearHand.emit()
+	SignalBus.restartGame.emit()
+
+
+func _on_main_menu_btn_pressed() -> void:
+	_go_to_main_menu()
+
+
+func _go_to_main_menu():
+	var main_menu = get_node("/root/Main/MainMenu")
+	var game = get_node("/root/Main/Game")
+	main_menu.show()
+	game.queue_free()
+	Stack.reset()
+	NetworkHandler.closePeer()
+
+func _reset():
+	goalReached = false
+	marbleInGoal = false
+
+	turnTimer.stop()
+
+	marbleDropped = false
+	killMarbleCount = 0
+
+	%GameEndController.hide()
+	%NextTurnBanner.hide()
+
+	if (multiplayer.is_server()): %start.disabled = false

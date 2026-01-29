@@ -22,10 +22,10 @@ transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, -0.025)
 [node name="Row_0" type="Node3D" parent="transform/grid"]
 
 [node name="HexTile_0_0" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 0)
 
 [node name="HexTile_0_1" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 1)
 grid_position = Vector2(0, 1)
 
 [node name="HexTile_0_2" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
@@ -33,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 2)
 grid_position = Vector2(0, 2)
 
 [node name="HexTile_0_3" parent="transform/grid/Row_0" instance=ExtResource("3_e0v05")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7426, 0, 2.99818)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.732, 0, 3)
 grid_position = Vector2(0, 3)
 
 [node name="Row_01" type="Node3D" parent="transform/grid"]
@@ -151,7 +151,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.047, 7.03113, -161.042)
 [node name="start_06" parent="transform/board_24" instance=ExtResource("4_e0v05")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.108, 7.03113, -161.042)
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="tiles" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="MultiplayerSpawner_marble" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bdao81yo3lxtw")
 spawn_path = NodePath("..")
+
+[node name="MultiplayerSpawner_tiles" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
+spawn_path = NodePath("../tiles")

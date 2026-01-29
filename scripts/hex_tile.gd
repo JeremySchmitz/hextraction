@@ -101,7 +101,7 @@ func _on_rotate_left_input_event(_camera: Node, event: InputEvent, _event_positi
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.pressed
 	):
-		%markerTile.rotate(Vector3(0, 1, 0), deg_to_rad(-60))
+		%markerTile.rotate(Vector3(0, 1, 0), deg_to_rad(60))
 
 
 func _on_rotate_right_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
@@ -109,7 +109,7 @@ func _on_rotate_right_input_event(_camera: Node, event: InputEvent, _event_posit
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.pressed
 	):
-		%markerTile.rotate(Vector3(0, 1, 0), deg_to_rad(60))
+		%markerTile.rotate(Vector3(0, 1, 0), deg_to_rad(-60))
 
 
 func _on_cancel_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
@@ -128,8 +128,8 @@ func _on_confirm_input_event(_camera: Node, event: InputEvent, _event_position: 
 		var child = %markerTile.get_children()[0]
 		if child:
 			child.queue_free()
-			var pos = global_position
-			var rot = global_rotation
+			var pos = child.global_position
+			var rot = child.global_rotation
 			hasTile = true
 			SignalBus.tileConfirmed.emit(pos, rot)
 

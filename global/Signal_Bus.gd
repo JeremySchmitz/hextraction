@@ -20,7 +20,9 @@ signal turnChanged(player: ListPlayer)
 signal playerSet(player: ListPlayer)
 
 signal startGame()
+signal restartGame()
 
 signal tilePlayed(scenePath: String)
 signal tileDealt(tile: TileResource)
 signal updateDeckCount()
+signal clearHand()

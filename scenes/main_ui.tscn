@@ -13,7 +13,7 @@ properties/0/path = NodePath(".:text")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Main UI" type="Control"]
+[node name="MainUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,6 +48,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Start"
 
+[node name="MainMenuBtn2" type="Button" parent="MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
 [node name="this_player" type="Label" parent="MarginContainer/Control/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 40)
@@ -80,7 +84,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Winner_Banner" type="Label" parent="MarginContainer/Control"]
+[node name="GameEndController" type="VBoxContainer" parent="MarginContainer/Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -89,14 +93,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -172.5
+offset_top = -59.0
+offset_right = 172.5
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Winner_Banner" type="Label" parent="MarginContainer/Control/GameEndController"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "WINNER"
 label_settings = SubResource("LabelSettings_513t2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/GameEndController"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayAgainBtn" type="Button" parent="MarginContainer/Control/GameEndController/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play Again"
+
+[node name="MainMenuBtn" type="Button" parent="MarginContainer/Control/GameEndController/HBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
 
 [node name="NextTurnBanner" type="Label" parent="MarginContainer/Control"]
 unique_name_in_owner = true
@@ -121,4 +143,7 @@ root_path = NodePath("../MarginContainer/Control/VBoxContainer/turn")
 replication_config = SubResource("SceneReplicationConfig_513t2")
 
 [connection signal="pressed" from="MarginContainer/Control/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/VBoxContainer/MainMenuBtn2" to="." method="_on_main_menu_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/VBoxContainer/HBoxContainer/KillMarbleBtn" to="." method="_on_kill_marble_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/GameEndController/HBoxContainer/PlayAgainBtn" to="." method="_on_play_again_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/GameEndController/HBoxContainer/MainMenuBtn" to="." method="_on_main_menu_btn_pressed"]

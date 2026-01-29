@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0wneo01714k3"]
+[gd_scene load_steps=9 format=3 uid="uid://d0wneo01714k3"]
 
 [ext_resource type="Theme" uid="uid://clywauh1wf3h7" path="res://resources/main_theme.tres" id="1_nqr8b"]
 [ext_resource type="Script" uid="uid://cpkyybcuy7cxe" path="res://scripts/tile_card.gd" id="1_tn3xk"]
 [ext_resource type="PackedScene" uid="uid://b1k6ggxnugiud" path="res://scenes/tiles/tile_asterisk.tscn" id="2_nqr8b"]
-[ext_resource type="Resource" uid="uid://c2plmwt63brwf" path="res://resources/tiles/tile_j.tres" id="3_tn3xk"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_hasbi"]
 viewport_path = NodePath("SubViewport")
@@ -36,7 +35,6 @@ offset_right = 125.0
 offset_bottom = 150.0
 theme = ExtResource("1_nqr8b")
 script = ExtResource("1_tn3xk")
-tileResource = ExtResource("3_tn3xk")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

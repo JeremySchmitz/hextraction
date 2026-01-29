@@ -26,6 +26,10 @@ func buildDeck(size: int) -> Array[TileResource]:
 	var deck: Array[TileResource] = []
 	for i in range(size):
 		var j = randi_range(0, TILE_LIST.size() - 1)
+
+		# temp while we dont want to use blind bottom
+		if j == 1: j = 2
+
 		var tile = TILE_LIST.values()[j]
 		deck.append(tile)
 	

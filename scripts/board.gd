@@ -12,12 +12,13 @@ func _ready() -> void:
 	SignalBus.tileCanceled.connect(_onTileCanceled)
 	SignalBus.startAreaClicked.connect(_onStartClick)
 	SignalBus.tileCardClicked.connect(_onCardClicked)
+	SignalBus.restartGame.connect(_clearBoard)
 	
 	_getTilePlaces()
 	_readyPlaces(false)
 	
 	for tile in TileDeck.TILE_LIST.values():
-		%MultiplayerSpawner.add_spawnable_scene(tile.scenePath)
+		%MultiplayerSpawner_tiles.add_spawnable_scene(tile.scenePath)
 
 	Stack.buildDeck()
 
@@ -105,5 +106,11 @@ func spawnTile(tileRsc, pos: Vector3, rot: Vector3):
 	var newTile = load(tileRsc).instantiate()
 	newTile.position = pos
 	newTile.rotation = rot
-	add_child(newTile, true)
+	%tiles.add_child(newTile, true)
 	newTile.syncing()
+
+
+func _clearBoard():
+	if !multiplayer.is_server(): return
+	for child in %tiles.get_children():
+		child.queue_free()
